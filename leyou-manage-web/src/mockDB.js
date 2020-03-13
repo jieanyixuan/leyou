@@ -859,7 +859,9 @@
       }]
     }]
   }];
-const brandData = [{"id": 1115, "name": "HTC", "image": "", "letter": "H", "categories": null}, {
+const brandData = [
+  {"id": 1115, "name": "HTC", "image": "", "letter": "H", "categories": null},
+  {
     "id": 1528,
     "name": "LG",
     "image": "",

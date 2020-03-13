@@ -1,5 +1,8 @@
 package com.leyou.item.controller;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.leyou.item.service.CategoryService;
 import com.leyou.pojo.Category;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,4 +55,5 @@ public class CategoryController {
 
             //实际应该捕捉异常,响应500服务器内部错误,但服务器出错会自己响应500,所以就不需要我们自己捕捉响应了
     }
+
 }
