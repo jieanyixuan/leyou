@@ -9,6 +9,7 @@ import com.leyou.pojo.Brand;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.entity.Example;
 
 import java.util.List;
@@ -55,5 +56,22 @@ public class BrandServiceImpl implements BrandService {
         PageInfo<Brand> pageInfo = new PageInfo<> (brands);
 
         return new PageResult<Brand> (pageInfo.getTotal (),pageInfo.getList ());
+    }
+
+    /**
+     * 新增品牌
+     *
+     * @param brand
+     * @param cid
+     */
+    @Override
+    @Transactional
+    public void insertBrand(Brand brand, List<Long> cids) {
+        //先插入品牌信息
+        brandMapper.insertSelective (brand);
+        //再添加品牌和分类的关联信息
+        cids.forEach (cid -> {
+            brandMapper.addToCategoryAndBrand (cid,brand.getId ());
+        });
     }
 }

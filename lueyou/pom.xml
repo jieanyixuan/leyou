@@ -12,6 +12,7 @@
         <module>leyou-item</module>
         <module>leyou-common</module>
         <module>leyou-gateway</module>
+        <module>leyou-upload</module>
     </modules>
     <packaging>pom</packaging>
 

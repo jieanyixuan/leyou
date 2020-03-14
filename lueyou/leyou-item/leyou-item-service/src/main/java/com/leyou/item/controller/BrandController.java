@@ -8,8 +8,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.List;
 
 /**
  * @author 王俊杰
@@ -42,5 +45,14 @@ public class BrandController {
             return ResponseEntity.notFound ().build ();
         }
         return ResponseEntity.ok (brands);
+    }
+
+    /**
+     * 添加品牌
+     */
+    @PostMapping
+    public ResponseEntity<Void> insert(Brand brand,@RequestParam("cids") List<Long> cids) {
+        brandService.insertBrand (brand,cids);
+        return ResponseEntity.ok ().build ();
     }
 }
