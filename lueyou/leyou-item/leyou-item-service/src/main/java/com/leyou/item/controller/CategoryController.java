@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -18,6 +19,7 @@ import java.util.List;
 
 /**
  * @author 王俊杰
+ * 分类控制器
  */
 @Controller
 @RequestMapping("/category")
@@ -54,6 +56,18 @@ public class CategoryController {
             return ResponseEntity.ok (categories);
 
             //实际应该捕捉异常,响应500服务器内部错误,但服务器出错会自己响应500,所以就不需要我们自己捕捉响应了
+    }
+
+    /**
+     * 根据品牌id查询品牌所属分类
+     */
+    @GetMapping("/bid/{bid}")
+    public ResponseEntity<List<Category>> findCategoriesByBid(@PathVariable("bid") Long bid){
+        List<Category> categories = categoryService.findCategoriesByBid(bid);
+        if (CollectionUtils.isEmpty (categories)) {
+            return ResponseEntity.notFound ().build ();
+        }
+        return ResponseEntity.ok (categories);
     }
 
 }

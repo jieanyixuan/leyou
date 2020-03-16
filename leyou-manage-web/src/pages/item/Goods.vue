@@ -48,8 +48,8 @@
           <v-btn icon>
             <i class="el-icon-delete"/>
           </v-btn>
-          <v-btn icon v-if="props.item.saleable">下架</v-btn>
-          <v-btn icon v-else>上架</v-btn>
+          <v-btn icon v-if="props.item.saleable">上架</v-btn>
+          <v-btn icon v-else>下架</v-btn>
         </td>
       </template>
     </v-data-table>
@@ -85,6 +85,8 @@
   // 导入自定义的表单组件
   import GoodsForm from './GoodsForm'
 
+  import {goodsData} from "../../mockDB";
+
   export default {
     name: "goods",
     data() {
@@ -110,10 +112,10 @@
         step: 1, // 子组件中的步骤线索引，默认为1
       }
     },
-    mounted() { // 渲染后执行
-      // 查询数据
-      this.getDataFromServer();
-    },
+    // mounted() { // 渲染后执行
+    //   // 查询数据
+    //   this.getDataFromServer();
+    // },
     watch: {
       pagination: { // 监视pagination属性的变化
         deep: true, // deep为true，会监视pagination的属性及属性中的对象属性变化

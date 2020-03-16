@@ -62,7 +62,7 @@ public class BrandServiceImpl implements BrandService {
      * 新增品牌
      *
      * @param brand
-     * @param cid
+     * @param cids
      */
     @Override
     @Transactional
@@ -73,5 +73,37 @@ public class BrandServiceImpl implements BrandService {
         cids.forEach (cid -> {
             brandMapper.addToCategoryAndBrand (cid,brand.getId ());
         });
+    }
+
+    /**
+     * 修改品牌信息
+     *
+     * @param brand
+     * @param cids
+     */
+    @Override
+    @Transactional
+    public void update(Brand brand, List<Long> cids) {
+        brandMapper.updateByPrimaryKeySelective (brand);
+
+        //对于多表的更新操作,就是删除旧的添加新的
+        brandMapper.deleteCategoryAndBrandByBid(brand.getId ());
+        cids.stream ().forEach (cid -> {
+            brandMapper.addToCategoryAndBrand (cid,brand.getId ());
+        });
+    }
+
+    /**
+     * 删除品牌信息
+     *
+     * @param bid
+     */
+    @Override
+    @Transactional
+    public void delete(Long bid) {
+        //先删除关联分类信息
+        brandMapper.deleteCategoryAndBrandByBid (bid);
+        //再删除品牌信息
+        brandMapper.deleteByPrimaryKey (bid);
     }
 }

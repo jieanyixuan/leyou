@@ -5,8 +5,10 @@ import com.leyou.item.service.CategoryService;
 import com.leyou.pojo.Category;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author 王俊杰
@@ -14,6 +16,7 @@ import java.util.List;
  */
 
 @Service
+@Transactional
 public class CategoryServiceImpl implements CategoryService {
     @Autowired
     private CategoryMapper categoryMapper;
@@ -28,5 +31,29 @@ public class CategoryServiceImpl implements CategoryService {
         Category record = new Category ();
         record.setParentId (pid);
         return categoryMapper.select (record);
+    }
+
+    /**
+     * 通过ids查询分类名集合
+     *
+     * @param ids
+     * @return
+     */
+    @Override
+    public List<String> queryNamesByIds(List<Long> ids) {
+        List<Category> list = categoryMapper.selectByIdList (ids);
+        List<String> names = list.stream ().map (category -> category.getName ()).collect (Collectors.toList ());
+        return names;
+    }
+
+    /**
+     * 根据品牌id查询品牌所属分类
+     *
+     * @param bid
+     */
+    @Override
+    public List<Category> findCategoriesByBid(Long bid) {
+        List<Long> cids = categoryMapper.findCidsByBid (bid);
+        return categoryMapper.selectByIdList (cids);
     }
 }
