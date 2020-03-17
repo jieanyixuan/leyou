@@ -38,15 +38,24 @@ public class SpecificationServiceImpl implements SpecificationService {
     }
 
     /**
-     * 通过分组id查询参数
+     * 通过分组id,
+     * 或分类id,
+     * 或是否是搜索字段,
+     * 或是否是通用字段
+     * 查询参数集合
      *
      * @param gid
-     * @return
+     * @param cid
+     * @param searching
+     * @param generic
      */
     @Override
-    public List<SpecParam> queryParamsByGid(Long gid) {
+    public List<SpecParam> queryParams(Long gid, Long cid, Boolean searching, Boolean generic) {
         SpecParam specParam = new SpecParam ();
         specParam.setGroupId (gid);
+        specParam.setCid (cid);
+        specParam.setSearching (searching);
+        specParam.setGeneric (generic);
         return specParamMapper.select (specParam);
     }
 

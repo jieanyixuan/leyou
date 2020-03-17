@@ -85,7 +85,6 @@
   // 导入自定义的表单组件
   import GoodsForm from './GoodsForm'
 
-  import {goodsData} from "../../mockDB";
 
   export default {
     name: "goods",

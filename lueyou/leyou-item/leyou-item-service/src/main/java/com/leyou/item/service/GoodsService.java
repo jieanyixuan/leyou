@@ -17,4 +17,10 @@ public interface GoodsService {
      * @return
      */
     PageResult<SpuBo> querySpuBoByPage(String key, Boolean saleable, Integer page, Integer rows);
+
+    /**
+     * 添加新商品
+     * @param spuBo
+     */
+    void saveGoods(SpuBo spuBo);
 }

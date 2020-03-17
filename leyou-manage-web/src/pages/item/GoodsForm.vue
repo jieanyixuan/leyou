@@ -54,6 +54,7 @@
       </v-stepper-content>
       <!--2、商品描述-->
       <v-stepper-content step="2">
+        <label style="font-size: 20px;">商品描述</label>
         <v-editor v-model="goods.spuDetail.description" upload-url="/upload/image"/>
       </v-stepper-content>
       <!--3、规格参数-->

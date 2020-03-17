@@ -73,4 +73,17 @@ public class BrandController {
         brandService.delete(bid);
         return ResponseEntity.ok ().build ();
     }
+
+    /**
+     * 根据分类id查询该分类的所有品牌
+     */
+    @GetMapping("/cid/{cid}")
+    public ResponseEntity<List<Brand>> findBrandsByCid(@PathVariable("cid") Long cid) {
+        List<Brand> brands = brandService.findBrandsByCid(cid);
+        if (CollectionUtils.isEmpty (brands)) {
+            return ResponseEntity.notFound ().build ();
+        }
+        return ResponseEntity.ok (brands);
+    }
+
 }

@@ -18,11 +18,13 @@ public interface SpecificationService {
     List<SpecGroup> queryGroupsByCid(Long cid);
 
     /**
-     * 通过分组id查询参数
-     * @param gid
-     * @return
+     * 通过分组id,
+     * 或分类id,
+     * 或是否是搜索字段,
+     * 或是否是通用字段
+     * 查询参数集合
      */
-    List<SpecParam> queryParamsByGid(Long gid);
+    List<SpecParam> queryParams(Long gid,Long cid,Boolean searching,Boolean generic);
 
     /**
      * 添加分组
@@ -56,6 +58,8 @@ public interface SpecificationService {
 
     /**
      * 通过组id删除分组信息
+     *
+     * @param gid
      */
     void deleteGroupByGid(Long gid);
 }

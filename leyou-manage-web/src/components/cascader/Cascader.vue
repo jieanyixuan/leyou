@@ -1,4 +1,4 @@
-<template>
+ <template>
   <cas :data="options" @on-change="handleChange" :loadData="loadOption" transfer>
     <v-select :label="label" chips clearable v-model="selected" tags :required="required"
       :rules="defaultRules">
