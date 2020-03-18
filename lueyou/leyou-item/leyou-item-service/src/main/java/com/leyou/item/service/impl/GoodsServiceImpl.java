@@ -7,6 +7,7 @@ import com.leyou.common.pojo.PageResult;
 import com.leyou.item.mapper.*;
 import com.leyou.item.service.CategoryService;
 import com.leyou.item.service.GoodsService;
+import com.leyou.pojo.Sku;
 import com.leyou.pojo.Spu;
 import com.leyou.pojo.SpuDetail;
 import com.leyou.pojo.Stock;
@@ -113,10 +114,21 @@ public class GoodsServiceImpl implements GoodsService {
         spuDetail.setSpuId(spuBo.getId());
         this.spuDetailMapper.insertSelective(spuDetail);
 
+        saveSkuAndStock (spuBo);
+
+
+    }
+
+
+    /**
+     * 保存sku和库存信息
+     * @param spuBo
+     */
+    private void saveSkuAndStock(SpuBo spuBo) {
         spuBo.getSkus ().forEach (sku -> {
             //新增sku
             sku.setSpuId(spuBo.getId());
-            sku.setCreateTime(new Date());
+            sku.setCreateTime(new Date ());
             sku.setLastUpdateTime(sku.getCreateTime());
             this.skuMapper.insertSelective (sku);
 
@@ -126,7 +138,64 @@ public class GoodsServiceImpl implements GoodsService {
             stock.setStock(sku.getStock());
             this.stockMapper.insertSelective(stock);
         });
+    }
 
+    /**
+     * 根据spuId查询SpuDetail
+     *
+     * @param spuId
+     * @return
+     */
+    @Override
+    public SpuDetail querySpuDetailBySpuId(Long spuId) {
+        return spuDetailMapper.selectByPrimaryKey (spuId);
+    }
+
+    /**
+     * 通过spuId查询该商品的sku集合
+     *
+     * @param spuId
+     * @return
+     */
+    @Override
+    public List<Sku> querySkusBySpuId(Long spuId) {
+        Sku sku = new Sku ();
+        sku.setSpuId (spuId);
+        List<Sku> skus = skuMapper.select (sku);
+        skus.forEach (s -> {
+            Stock stock = stockMapper.selectByPrimaryKey (s.getId ());
+            s.setStock (stock.getStock ());
+        });
+        return skus;
+    }
+
+    /**
+     * 更新商品信息
+     *
+     * @param spuBo
+     * @return
+     */
+    @Override
+    public void updateGoods(SpuBo spuBo) {
+        Sku sku = new Sku ();
+        sku.setSpuId (spuBo.getId ());
+        List<Sku> skus = skuMapper.select (sku);
+        skus.forEach (s -> {
+            //删除库存信息
+            stockMapper.deleteByPrimaryKey (s.getId ());
+            //删除sku
+            skuMapper.deleteByPrimaryKey (s.getId ());
+        });
+
+        //新增sku和库存
+        this.saveSkuAndStock (spuBo);
+        //更新spu和spuDetail
+        spuBo.setCreateTime (null);
+        spuBo.setLastUpdateTime (new Date ());
+        spuBo.setValid (null);
+        spuBo.setSaleable (null);
+        spuMapper.updateByPrimaryKeySelective (spuBo);
+        spuDetailMapper.updateByPrimaryKeySelective (spuBo.getSpuDetail ());
 
     }
 }

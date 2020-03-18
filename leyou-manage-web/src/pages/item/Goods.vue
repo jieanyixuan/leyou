@@ -91,13 +91,19 @@
     data() {
       return {
         filter: {
-          saleable: true, // 上架还是下架
-          search: '', // 搜索过滤字段
+          // 上架还是下架
+          saleable: true,
+          // 搜索过滤字段
+          search: '',
         },
-        totalGoods: 0, // 总条数
-        goodsList: [], // 当前页品牌数据
-        loading: true, // 是否在加载中
-        pagination: {}, // 分页信息
+        // 总条数
+        totalGoods: 0,
+        // 当前页品牌数据
+        goodsList: [],
+        // 是否在加载中
+        loading: true,
+        // 分页信息
+        pagination: {},
         headers: [
           {text: 'id', align: 'center', sortable: false, value: 'id'},
           {text: '标题', align: 'center', sortable: false, value: 'title'},
