@@ -56,4 +56,14 @@ public class CategoryServiceImpl implements CategoryService {
         List<Long> cids = categoryMapper.findCidsByBid (bid);
         return categoryMapper.selectByIdList (cids);
     }
+
+    /**
+     * 添加新的商品分类
+     *
+     * @param category
+     */
+    @Override
+    public void addCategory(Category category) {
+        categoryMapper.insert (category);
+    }
 }

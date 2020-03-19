@@ -4,6 +4,7 @@ import com.leyou.bo.SpuBo;
 import com.leyou.common.pojo.PageResult;
 import com.leyou.pojo.Sku;
 import com.leyou.pojo.SpuDetail;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -26,6 +27,7 @@ public interface GoodsService {
      * 添加新商品
      * @param spuBo
      */
+    @Transactional
     void saveGoods(SpuBo spuBo);
 
     /**
@@ -47,5 +49,13 @@ public interface GoodsService {
      * @param spuBo
      * @return
      */
+    @Transactional
     void updateGoods(SpuBo spuBo);
+
+    /**
+     * 通过id更改valid属性,达到逻辑删除的目的
+     * @param spuId
+     */
+    @Transactional
+    void editValidBySpuId(Long spuId);
 }

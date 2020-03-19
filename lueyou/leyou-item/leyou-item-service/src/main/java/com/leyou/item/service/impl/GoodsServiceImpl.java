@@ -198,4 +198,18 @@ public class GoodsServiceImpl implements GoodsService {
         spuDetailMapper.updateByPrimaryKeySelective (spuBo.getSpuDetail ());
 
     }
+
+    /**
+     * 通过id更改valid属性,达到逻辑删除的目的
+     *
+     * @param spuId
+     */
+    @Override
+    public void editValidBySpuId(Long spuId) {
+        Spu spu = new Spu ();
+        spu.setId (spuId);
+        spu.setValid (false);
+        spu.setSaleable (false);
+        spuMapper.updateByPrimaryKeySelective (spu);
+    }
 }

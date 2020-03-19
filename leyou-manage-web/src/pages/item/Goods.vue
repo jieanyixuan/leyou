@@ -45,7 +45,7 @@
           <v-btn icon @click="editGoods(props.item)">
             <i class="el-icon-edit"/>
           </v-btn>
-          <v-btn icon>
+          <v-btn icon  @click="deleteGoods(props.item)">
             <i class="el-icon-delete"/>
           </v-btn>
           <v-btn icon v-if="props.item.saleable">上架</v-btn>
@@ -171,6 +171,23 @@
         this.show = true;
         // 获取要编辑的goods
         this.oldGoods = oldGoods;
+      },
+      deleteGoods(goods) {
+        if (goods.saleable) {
+          this.$message.confirm("确认要下架此商品吗？")
+            .then(() => {
+              this.$http.delete("/item/sku/" + goods.id)
+                .then(() => {
+                  this.$message.success("下架成功");
+                }).catch(() => {
+                this.$message.error("下架失败");
+              })
+
+            });
+        } else {
+          this.$message.warning("该商品已是下架状态");
+        }
+
       },
       closeWindow() {
         console.log(1)

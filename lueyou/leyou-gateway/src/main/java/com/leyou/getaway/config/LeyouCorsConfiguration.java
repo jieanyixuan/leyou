@@ -27,6 +27,8 @@ public class LeyouCorsConfiguration {
         config.setAllowCredentials (true);
         //设置允许哪些域可以跨域访问,要想携带cookie就不能写*
         config.addAllowedOrigin ("http://manage.leyou.com");
+        config.addAllowedOrigin ("http://manage.jieanyixuan.xyz");
+        config.addAllowedOrigin ("http://leyou.jieanyixuan.xyz");
         //允许请求的方式
         config.addAllowedMethod ("*"); //*表示允许所有,如GET POST PUT DELETE
         //允许携带哪些头信息

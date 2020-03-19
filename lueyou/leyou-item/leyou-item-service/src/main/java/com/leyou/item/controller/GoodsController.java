@@ -105,4 +105,14 @@ public class GoodsController {
         }
         return ResponseEntity.ok (skus);
     }
+
+    /**
+     * 通过spuId删除商品
+     */
+    @DeleteMapping("/sku/{spuId}")
+    public ResponseEntity<Void> deleteGoods(@PathVariable("spuId")Long spuId) {
+        //逻辑删除商品
+        goodsService.editValidBySpuId(spuId);
+        return ResponseEntity.noContent ().build ();
+    }
 }

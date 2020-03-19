@@ -33,8 +33,15 @@
     },
     methods: {
       handleAdd(node) {
-        console.log("add .... ");
-        console.log(node);
+        this.$http.post("/item/category/add",node)
+          .then(() => {
+            this.$message.success("添加成功");
+          })
+          .catch(() => {
+            this.$message.error("添加失败");
+          }).then(() => {
+            this.reload();
+        })
       },
       handleEdit(id, name) {
         console.log("edit... id: " + id + ", name: " + name)

@@ -1,0 +1,8 @@
+内网后台管理
+manage.leyou.com
+外网后台管理
+manage.jieanyixuan.xyz
+内网前台
+www.leyou.com
+外网前台
+leyou.jieanyixuan.xyz

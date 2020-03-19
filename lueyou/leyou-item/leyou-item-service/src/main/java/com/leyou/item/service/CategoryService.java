@@ -30,4 +30,10 @@ public interface CategoryService {
      * 根据品牌id查询品牌所属分类
      */
     List<Category> findCategoriesByBid(Long bid);
+
+    /**
+     * 添加新的商品分类
+     * @param category
+     */
+    void addCategory(Category category);
 }
